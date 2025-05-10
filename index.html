@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PU News, Events & Ads</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f4f8;
+      color: #333;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #222;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #005baa;
+    }
+    .btn-load {
+      display: block;
+      margin: 30px auto 0;
+      padding: 10px 20px;
+      background: #005baa;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-load:hover {
+      background: #004080;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- News Section -->
+  <section id="news" data-aos="fade-up">
+    <h2>📰 Latest News</h2>
+    <div class="grid" id="news-list"></div>
+    <button class="btn-load" onclick="loadMore('news')">Load More News</button>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" data-aos="fade-up">
+    <h2>📅 Upcoming Events</h2>
+    <div class="grid" id="events-list"></div>
+    <button class="btn-load" onclick="loadMore('events')">Load More Events</button>
+  </section>
+
+  <!-- Ads Section -->
+  <section id="ads" data-aos="fade-up">
+    <h2>📣 Announcements & Ads</h2>
+    <div class="grid" id="ads-list"></div>
+    <button class="btn-load" onclick="loadMore('ads')">Load More Ads</button>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    let limits = { news: 0, events: 0, ads: 0 };
+    const batchSize = 3;
+    let data = { news: [], events: [], ads: [] };
+
+    async function fetchData() {
+      const res = await fetch('content.json');
+      const json = await res.json();
+      data = json;
+      ['news', 'events', 'ads'].forEach(loadMore);
+    }
+
+    function loadMore(type) {
+      const container = document.getElementById(`${type}-list`);
+      const items = data[type];
+      const start = limits[type];
+      const end = start + batchSize;
+      const nextItems = items.slice(start, end);
+
+      nextItems.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p>`;
+        container.appendChild(div);
+      });
+
+      limits[type] = end;
+
+      if (limits[type] >= items.length) {
+        document.querySelector(`#${type} .btn-load`)?.remove();
+      }
+    }
+
+    window.onload = fetchData;
+  </script>
+</body>
+</html>

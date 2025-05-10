@@ -1,0 +1,18 @@
+{
+  "news": [
+    { "title": "New Engineering Program Launched", "description": "The Faculty of Engineering introduces a new program in Renewable Energy." },
+    { "title": "PU Wins Research Grant", "description": "PU secured €1.5M grant in the Erasmus+ program for mobility and innovation." },
+    { "title": "Student App Wins Award", "description": "PU IT students win first place in national app development competition." },
+    { "title": "Library Digital Access Improved", "description": "Over 5,000 journals now accessible through the new online library platform." }
+  ],
+  "events": [
+    { "title": "International Conference on AI – June 5", "description": "Join experts from around the world to discuss the future of AI in education." },
+    { "title": "Career Fair – May 20", "description": "Connect with top employers and discover internship opportunities." },
+    { "title": "Open Day – June 1", "description": "Explore our campus and meet faculty and students during our annual open day." }
+  ],
+  "ads": [
+    { "title": "Apply Now for Fall 2025", "description": "Admissions are open for all undergraduate and graduate programs." },
+    { "title": "📣 Staff Required – Research Center", "description": "We are hiring assistants for the Smart Innovation Lab. Apply before May 30." },
+    { "title": "Summer Courses Discount", "description": "Enroll in summer courses and get 20% off on tuition fees." }
+  ]
+}
